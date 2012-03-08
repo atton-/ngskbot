@@ -3,6 +3,7 @@
 
 require 'pp'
 require 'user_stream'
+require 'thread'
 
 UserStream.configure do |config|
   config.consumer_key = gets.chomp
@@ -12,7 +13,7 @@ UserStream.configure do |config|
 end
 
 bot_name = gets.chomp
-uesr_name = []
+user_name = []
 
 while true
   tmp = gets.chomp
@@ -21,8 +22,19 @@ while true
 end
 
 client = UserStream.client
-client.user do |status|
-  if status.has_key? "text"
-    pp status.text
+
+q = Queue.new
+
+user_stream = Thread.new do
+  client.user do |status|
+    if status.has_key? "text"
+      q.push(status)
+    end
   end
+end
+
+user_stream.run
+
+while true
+  pp q.pop
 end
