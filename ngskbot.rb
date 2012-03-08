@@ -44,7 +44,7 @@ client = UserStream.client
 # Thread 間通信用キュー作成
 q = Queue.new
 
-#UserStreamを受信するスレッドを作成
+# UserStreamを受信するスレッドを作成
 user_stream = Thread.new do
   client.user do |status|
     if status.has_key? "text"
@@ -59,7 +59,27 @@ user_stream.run
 
 while true
   # キューが空ならスレッドは停止するので、無限ループしてても大丈夫
-  
-  # テスト用ポスト
-  twitter.post "@_atton hogehoge",twitter.get_reply_options(q.pop)
+
+  # キューからツイートを取ってくる
+  tweet = q.pop
+
+  # format_check に投げて処理を判断
+  num = check.format_check tweet
+
+  case num
+  when -1
+    # add
+    puts "add"
+  when -2
+    # multi line
+    puts "multi line"
+  when -3 
+    # irigal format
+    puts "irigal format"
+  else
+    # no-reply or single reply or multi reply
+    num.times do
+      puts "reply"
+    end
+  end
 end
