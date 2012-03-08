@@ -16,17 +16,14 @@ class Message_check
   def format_check tweet
     # フォーマットをチェックする
     # 返り値と処理
-    # 0       追加
-    # -1      エラー : リプライでない
+    # -1      追加
     # -2      エラー : 改行が含まれている
     # -3      エラー : フォーマットが違う
+    # 0       リプライでない
     # 1以上   数字の分だけ返信
 
-    # リプライで無いもの。botnameが一つも含まれていない場合
-    return -1 if !tweet.text.include? "@#{@bot_name}"
-
     # original_usernameが含まれていない場合
-    # 通常返信なので、bot_nameが含まれている数を返す
+    # bot_nameが含まれている数を返す
     if !has_username? tweet.text
       return count_botname tweet.text
     end
@@ -65,7 +62,7 @@ class Message_check
   def add_check text
     # 追加用フォーマットかのチェック
     # 返り値
-    # 0   ヘッダがあっていて、一行
+    # -1  正しいフォーマット : ヘッダがあっていて、一行
     # -2  エラー : ヘッダはあっているが、改行がある
     # -3  エラー : ヘッダがあっていない
 
@@ -75,7 +72,7 @@ class Message_check
         -2
       else
         # ヘッダもあっていて改行無し
-        0
+        -1
       end
     else
       # ヘッダがあっていない
