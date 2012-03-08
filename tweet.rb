@@ -41,4 +41,12 @@ class Tweet
       end
     end
   end
+  
+  def get_reply_options tweet
+    # tweet から、それに対するreplyに必要なoptionを取得する
+    # 具体的には in_reply_to_status_id に必要なidを取ってくる
+    
+    {"in_reply_to_status_id"=>tweet.id}
+  end
+  
 end
