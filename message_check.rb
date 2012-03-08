@@ -12,9 +12,6 @@ class Message_check
     @original_name = original_name
   end
 
-  def test text
-    add_check text
-  end
 
   def format_check tweet
     # フォーマットをチェックする
@@ -37,8 +34,8 @@ class Message_check
       return count_botname tweet.text
     end
 
+    # 追加用のフォーマットかチェック
     add_check tweet.text
-
   end
 
   private
@@ -71,8 +68,10 @@ class Message_check
 
     if check_header? text
       if text.include? "\n"
+        # ヘッダはあっているけど改行含む
         -1
       else
+        # ヘッダもあっていて改行無し
         0
       end
     else
@@ -92,14 +91,3 @@ class Message_check
   end
 
 end
-
-bot = "ngskbot"
-users =["hamilton___","daijoubjanai","daijoubujanee","_atton"]
-
-puts Message_check.new(bot,users).test "hoge"
-puts Message_check.new(bot,users).test "@hamilton___"
-puts Message_check.new(bot,users).test "@daijoubujanee"
-puts Message_check.new(bot,users).test "@ngskbot"
-puts Message_check.new(bot,users).test "@ngskbot@ngskbot@ngskbot@ngskbot"
-puts Message_check.new(bot,users).test "@ngskbot RT @_atton: homebrew-alt なんてものがあるのか"
-puts Message_check.new(bot,users).test "@ngskbot RT @_atton: homebrew-a\nlt なんてものがあるのか"
