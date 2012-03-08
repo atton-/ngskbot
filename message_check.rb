@@ -22,6 +22,7 @@ class Message_check
     # -3      エラー : フォーマットが違う
     # 1以上   数字の分だけ返信
 
+    # リプライで無いもの。botnameが一つも含まれていない場合
     return -1 if !tweet.text.include? "@#{@bot_name}"
 
     # original_usernameが含まれていない場合
