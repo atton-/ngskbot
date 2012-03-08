@@ -13,7 +13,7 @@ class Message
   end
 
   def test text
-     check_header? text
+    add_check text
   end
 
   def formatCheck tweet
@@ -30,13 +30,13 @@ class Message
     if !has_username? tweet.text
       return count_botname tweet.text
     end
-    
+
     # original_usernameが含まれているが、先頭がbot_nameで無い場合
     # 通常返信なので、bot_nameが含まれている数を返す
     if tweet.text.start_with? "@#{@bot_name}"
       return count_botname tweet.text
     end
-    
+
     add_check tweet.text
 
   end
@@ -61,19 +61,30 @@ class Message
     end
     i
   end
-  
+
   def add_check text
-    
+    # 追加用フォーマットかのチェック
+    # 返り値
+    # 0   ヘッダがあっていて、一行
+    # -1  エラー : ヘッダはあっているが、改行がある
+    # -2  エラー : ヘッダがあっていない
+
     if check_header? text
+      if text.include? "\n"
+        -1
+      else
+        0
+      end
     else
+      # ヘッダがあっていない
       -2
     end
-    
+
   end
-  
+
   def check_header? text
     # 夜フクロウからの非公式RT + リプ の場合を追加用ヘッダと考えて照らし合わせる
-    
+
     @original_name.each do |name|
       return true if text.start_with? "@#{@bot_name} RT @#{name}: "
     end
@@ -91,3 +102,4 @@ puts Message.new(bot,users).test "@daijoubujanee"
 puts Message.new(bot,users).test "@ngskbot"
 puts Message.new(bot,users).test "@ngskbot@ngskbot@ngskbot@ngskbot"
 puts Message.new(bot,users).test "@ngskbot RT @_atton: homebrew-alt なんてものがあるのか"
+puts Message.new(bot,users).test "@ngskbot RT @_atton: homebrew-a\nlt なんてものがあるのか"
