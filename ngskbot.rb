@@ -1,13 +1,23 @@
 #!/usr/local/bin/ruby
 # -*- coding: utf-8 -*-
 
-BOT_NAME = "ngskbot"
+require 'pp'
+require 'user_stream'
 
 UserStream.configure do |config|
   config.consumer_key = gets.chomp
   config.consumer_secret = gets.chomp
   config.oauth_token = gets.chomp
   config.oauth_token_secret = gets.chomp
+end
+
+bot_name = gets.chomp
+uesr_name = []
+
+while true
+  tmp = gets.chomp
+  break if tmp.empty?
+  user_name.push tmp
 end
 
 client = UserStream.client
