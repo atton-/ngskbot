@@ -4,6 +4,7 @@
 require 'pp'
 require 'user_stream'
 require 'thread'
+require './message_check.rb'
 
 UserStream.configure do |config|
   config.consumer_key = gets.chomp
@@ -14,6 +15,8 @@ end
 
 bot_name = gets.chomp
 user_name = []
+check = Message_check.new bot_name,user_name
+
 
 while true
   tmp = gets.chomp
@@ -39,5 +42,5 @@ user_stream.run
 
 while true
   #キューが空ならスレッドは停止する
-  pp q.pop
+  pp check.format_check q.pop
 end
