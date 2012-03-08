@@ -5,7 +5,7 @@
 # botの名前とかoriginal_userの名前を入れておく
 
 
-class Message
+class Message_check
 
   def initialize bot_name,original_name
     @bot_name = bot_name
@@ -16,7 +16,7 @@ class Message
     add_check text
   end
 
-  def formatCheck tweet
+  def format_check tweet
     # フォーマットをチェックする
     # 返り値と処理
     # 0       追加
@@ -96,10 +96,10 @@ end
 bot = "ngskbot"
 users =["hamilton___","daijoubjanai","daijoubujanee","_atton"]
 
-puts Message.new(bot,users).test "hoge"
-puts Message.new(bot,users).test "@hamilton___"
-puts Message.new(bot,users).test "@daijoubujanee"
-puts Message.new(bot,users).test "@ngskbot"
-puts Message.new(bot,users).test "@ngskbot@ngskbot@ngskbot@ngskbot"
-puts Message.new(bot,users).test "@ngskbot RT @_atton: homebrew-alt なんてものがあるのか"
-puts Message.new(bot,users).test "@ngskbot RT @_atton: homebrew-a\nlt なんてものがあるのか"
+puts Message_check.new(bot,users).test "hoge"
+puts Message_check.new(bot,users).test "@hamilton___"
+puts Message_check.new(bot,users).test "@daijoubujanee"
+puts Message_check.new(bot,users).test "@ngskbot"
+puts Message_check.new(bot,users).test "@ngskbot@ngskbot@ngskbot@ngskbot"
+puts Message_check.new(bot,users).test "@ngskbot RT @_atton: homebrew-alt なんてものがあるのか"
+puts Message_check.new(bot,users).test "@ngskbot RT @_atton: homebrew-a\nlt なんてものがあるのか"
