@@ -25,9 +25,11 @@ client = UserStream.client
 
 q = Queue.new
 
+#UserStreamを受信するスレッドを作成
 user_stream = Thread.new do
   client.user do |status|
     if status.has_key? "text"
+      #textが含まれていたらとりあえずキューにpushする
       q.push(status)
     end
   end
@@ -36,5 +38,6 @@ end
 user_stream.run
 
 while true
+  #キューが空ならスレッドは停止する
   pp q.pop
 end
