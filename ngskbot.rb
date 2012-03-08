@@ -8,7 +8,6 @@ DEBUG_FLG = false
 require 'pp'
 require 'thread'
 require 'user_stream'
-require 'twitter'
 require './message_check.rb'
 require './tweet.rb'
 
@@ -58,6 +57,7 @@ end
 user_stream.run
 
 while true
+  # main loop
   # キューが空ならスレッドは停止するので、無限ループしてても大丈夫
 
   # キューからツイートを取ってくる
