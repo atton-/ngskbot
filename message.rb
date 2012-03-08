@@ -31,6 +31,12 @@ class Message
       return count_botname tweet.text
     end
     
+    # original_usernameが含まれているが、先頭がbot_nameで無い場合
+    # 通常返信なので、bot_nameが含まれている数を返す
+    if tweet.text.start_with? "@#{@bot_name}"
+      return count_botname tweet.text
+    end
+    
     add_check tweet.text
 
   end
@@ -58,6 +64,10 @@ class Message
   
   def add_check text
     
+    if check_header? text
+    else
+      -2
+    end
     
   end
   
