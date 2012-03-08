@@ -28,7 +28,7 @@ class Message
 
     # original_usernameが含まれていない場合
     # 通常返信なので、bot_nameが含まれている数を返す
-    if !has_usrname? tweet.text do
+    if !has_username? tweet.text do
       return count_botname tweet.text
     end
 
@@ -38,7 +38,7 @@ class Message
 
   private
 
-  def has_usrname? text
+  def has_username? text
     # original の username が含まれているかどうか
     @original_name.each do |name|
       return true if text.include? "@#{name}"
