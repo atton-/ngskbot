@@ -13,26 +13,25 @@ class Message
   end
 
   def test text
-     count_botname text
+     check_header? text
   end
 
   def formatCheck tweet
     # フォーマットをチェックする
     # 返り値と処理
     # 0       追加
-    # -1      エラー : クライアントが夜フクロウじゃない
-    # -2      エラー : 改行が含まれている
-    # -3      エラー : フォーマットが違う
+    # -1      エラー : 改行が含まれている
+    # -2      エラー : フォーマットが違う
     # 1以上   数字の分だけ返信
 
 
     # original_usernameが含まれていない場合
     # 通常返信なので、bot_nameが含まれている数を返す
-    if !has_username? tweet.text do
+    if !has_username? tweet.text
       return count_botname tweet.text
     end
-
-    end
+    
+    add_check tweet.text
 
   end
 
@@ -56,14 +55,29 @@ class Message
     end
     i
   end
+  
+  def add_check text
+    
+    
+  end
+  
+  def check_header? text
+    # 夜フクロウからの非公式RT + リプ の場合を追加用ヘッダと考えて照らし合わせる
+    
+    @original_name.each do |name|
+      return true if text.start_with? "@#{@bot_name} RT @#{name}: "
+    end
+    false
+  end
 
 end
 
 bot = "ngskbot"
-users =["hamilton___","daijoubjanai","daijoubujanee"]
+users =["hamilton___","daijoubjanai","daijoubujanee","_atton"]
 
 puts Message.new(bot,users).test "hoge"
 puts Message.new(bot,users).test "@hamilton___"
 puts Message.new(bot,users).test "@daijoubujanee"
 puts Message.new(bot,users).test "@ngskbot"
 puts Message.new(bot,users).test "@ngskbot@ngskbot@ngskbot@ngskbot"
+puts Message.new(bot,users).test "@ngskbot RT @_atton: homebrew-alt なんてものがあるのか"
