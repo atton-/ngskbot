@@ -6,6 +6,7 @@ require 'thread'
 require 'user_stream'
 require 'twitter'
 require './message_check.rb'
+require './tweet.rb'
 
 # 標準入力からトークン、botname,username(複数可)を取得
 consumer_key = gets.chomp
@@ -20,14 +21,8 @@ while true
   user_name.push tmp
 end
 
-# UserStreamとRESTに認証
+# UserStreamに認証
 UserStream.configure do |config|
-  config.consumer_key = consumer_key
-  config.consumer_secret = consumer_secret
-  config.oauth_token = oauth_token
-  config.oauth_token_secret = oauth_token_secret
-end
-Twitter.configure do |config|
   config.consumer_key = consumer_key
   config.consumer_secret = consumer_secret
   config.oauth_token = oauth_token
@@ -59,10 +54,4 @@ user_stream.run
 while true
   # キューが空ならスレッドは停止するので、無限ループしてても大丈夫
   pp check.format_check q.pop
-
-  # error が出たら落ちちゃうので、begin-rescue-end でゴリ押し
-  begin
-    Twitter.update("test now")
-  rescue
-  end
 end
