@@ -33,8 +33,3 @@ class File_io
     f.close
   end
 end
-
-hoge = File_io.new "./hoge.txt"
-puts hoge.open_file
-hoge.add_message "hogehoge"
-puts hoge.open_file
