@@ -1,6 +1,10 @@
 #!/usr/local/bin/ruby
 # -*- coding: utf-8 -*-
 
+# デバッグするかどうか。
+# trueならtwitterにポストせずに標準出力に出すだけ
+DEBUG_FLG = false
+
 require 'pp'
 require 'thread'
 require 'user_stream'
@@ -28,6 +32,8 @@ UserStream.configure do |config|
   config.oauth_token = oauth_token
   config.oauth_token_secret = oauth_token_secret
 end
+# REST用クラス作成
+twitter = Tweet.new consumer_key,consumer_secret,oauth_token,oauth_token_secret,DEBUG_FLG
 
 # チェック用クラス生成
 check = Message_check.new bot_name,user_name
@@ -53,5 +59,7 @@ user_stream.run
 
 while true
   # キューが空ならスレッドは停止するので、無限ループしてても大丈夫
-  pp check.format_check q.pop
+  
+  # テスト用ポスト
+  twitter.post "@_atton hogehoge",twitter.get_reply_options(q.pop)
 end
