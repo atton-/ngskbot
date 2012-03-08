@@ -30,7 +30,7 @@ class Message_check
 
     # original_usernameが含まれているが、先頭がbot_nameで無い場合
     # 通常返信なので、bot_nameが含まれている数を返す
-    if tweet.text.start_with? "@#{@bot_name}"
+    if !tweet.text.start_with? "@#{@bot_name}"
       return count_botname tweet.text
     end
 
