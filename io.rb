@@ -26,15 +26,33 @@ class File_io
     @add_replys = open_file "#{@path}/#{add_reply_filename}"
     @illigal_replys = open_file "#{@path}/#{illegal_reply_filename}"
     @multiline_replys = open_file "#{@path}/#{multiline_reply_filename}"
+
+    # メッセージ追加用ファイルの存在確認
+    # ファイル名は今のところベタ書き
+
+    @add_tweet_file = "tweet_ngskbot.txt"
+    @add_tweet_log_file = "tweet_ngskbot_log.txt"
+
+    file_check "#{@path}/#{@add_tweet_file}"
+    file_check "#{@path}/#{@add_tweet_log_file}"
   end
 
   attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
 
   def add_tweet tweet,debug = true
     # めいげんの追加書き込み + ログ書き込みをする
+    # 念のためデフォルトのデバッグフラグはtrue
 
-    pp debug
-    puts get_text tweet.text
+
+    if debug
+      puts "----- (debug mode : check write tweet ) ------"
+      puts "追加予定の内容"
+      puts get_text tweet.text
+      puts "---- (debug mode : check write tweet end ) ----"
+    else
+      add_message("#{@path}/#{@add_tweet_file}",get_text(tweet.text)) # ツイート書き込み
+      add_message("#{@path}/#{@add_tweet_log_file}",get_log(tweet))   # ログ書き込み
+    end
   end
 
 
@@ -94,5 +112,5 @@ class File_io
 
     msg
   end
-  
+
 end
