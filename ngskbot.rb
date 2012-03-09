@@ -3,7 +3,7 @@
 
 # デバッグするかどうか。
 # trueならtwitterにポストせずに標準出力に出すだけ
-DEBUG_FLG = false
+DEBUG_FLG = true
 
 # ファイルのパス
 FILES_PATH = "./files_ngskbot"
@@ -68,23 +68,6 @@ while true
   # キューからツイートを取ってくる
   tweet = q.pop
 
-  # format_check に投げて処理を判断
-  num = check.format_check tweet
-
-  case num
-  when -1
-    # add
-    puts "add"
-  when -2
-    # multi line
-    puts "multi line"
-  when -3 
-    # different format
-    puts "different format"
-  else
-    # no-reply or single reply or multi reply
-    num.times do
-      puts "reply"
-    end
-  end
+  # format_check に投げて処理を判断して、リプライを送る
+  twitter.tweet_reply(tweet,check.format_check(tweet))
 end
