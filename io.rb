@@ -9,10 +9,10 @@ class File_io
     # path が存在するか一応確認する
     file_check path
     @path = path
-    files_init
+    files_load
   end
   
-  def files_init
+  def files_load
     # 各種ファイルの存在確認。
     # それぞれのファイル名は今のところベタ書き
     
@@ -21,13 +21,14 @@ class File_io
     illegal_reply_filename = "i"
     multilne_reply_filename = "m"
     
-    # 確認
-    file_check "#{@path}/#{normal_reply_filename}"
-    file_check "#{@path}/#{add_reply_filename}"
-    file_check "#{@path}/#{illegal_reply_filename}"
-    file_check "#{@path}/#{multilne_reply_filename}"
-    
+    # 各種ファイルのロード
+    @normal_replys = open_file "#{@path}/#{normal_reply_filename}"
+    @add_replys = open_file "#{@path}/#{add_reply_filename}"
+    @illigal_replys = open_file "#{@path}/#{illegal_reply_filename}"
+    @multiline_replys = open_file "#{@path}/#{multilne_reply_filename}"
   end
+  
+  attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
 
   def file_check path
     puts path
@@ -37,8 +38,13 @@ class File_io
     end
   end
 
-  def open_file 
+  def open_file file_name
     # ファイルの内容をすべて読みこんで返す
+    
+    # ファイルの存在確認
+    file_check file_name
+    
+    # 読み込み
     file_processing do |file|
       return file.read
     end
