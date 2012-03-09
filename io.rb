@@ -19,13 +19,13 @@ class File_io
     normal_reply_filename = "normal_replys.txt"
     add_reply_filename = "add_replys.txt"
     illegal_reply_filename = "illigal_replys.txt"
-    multilne_reply_filename = "multiline_replys.txt"
+    multiline_reply_filename = "multiline_replys.txt"
 
     # 各種ファイルのロード
     @normal_replys = open_file "#{@path}/#{normal_reply_filename}"
     @add_replys = open_file "#{@path}/#{add_reply_filename}"
     @illigal_replys = open_file "#{@path}/#{illegal_reply_filename}"
-    @multiline_replys = open_file "#{@path}/#{multilne_reply_filename}"
+    @multiline_replys = open_file "#{@path}/#{multiline_reply_filename}"
   end
 
   attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
