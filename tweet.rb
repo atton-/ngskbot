@@ -28,17 +28,20 @@ class Tweet
 
     case num
     when -1
-      # add
+      # 追加する場合
+      
+      # 追加用コードをここに入れる予定
       post "@#{tweet.user.screen_name} #{@io.add_replys.sample}",options
-      # write add message to file
     when -2
-      # multi line
+      # 複数行の場合
       post "@#{tweet.user.screen_name} #{@io.multiline_replys.sample}",options
     when -3 
-      # illigal format
+      # フォーマットが違う場合
       post "@#{tweet.user.screen_name} #{@io.illigal_replys.sample}",options
     else
-      # no-reply or single reply or multi reply
+      # 通常リプライ。
+      # bot_nameが含まれていない場合はnumが0になるので結果的にリプライしない
+      # bot_nameが含まれている数だけつぶやく
       num.times do
         post "@#{tweet.user.screen_name} #{@io.normal_replys.sample}",options
       end
