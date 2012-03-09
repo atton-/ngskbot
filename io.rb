@@ -16,10 +16,10 @@ class File_io
     # 各種ファイルの存在確認。
     # それぞれのファイル名は今のところベタ書き
     
-    normal_reply_filename = "n"
-    add_reply_filename = "a"
-    illegal_reply_filename = "i"
-    multilne_reply_filename = "m"
+    normal_reply_filename = "normal_replys.txt"
+    add_reply_filename = "add_replys.txt"
+    illegal_reply_filename = "illigal_replys.txt"
+    multilne_reply_filename = "multiline_replys.txt"
     
     # 各種ファイルのロード
     @normal_replys = open_file "#{@path}/#{normal_reply_filename}"
@@ -31,35 +31,31 @@ class File_io
   attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
 
   def file_check path
-    puts path
+    puts "hogehogeho : #{path}"
     if !FileTest.exist? path
       puts "#{path} は存在しません。終了します。"
       exit
     end
   end
 
-  def open_file file_name
+  def open_file file_path
     # ファイルの内容をすべて読みこんで返す
     
     # ファイルの存在確認
-    file_check file_name
+    file_check file_path
     
     # 読み込み
-    file_processing do |file|
-      return file.read
-    end
+    
+    f = File.open(file_path,"r")
+    file_text = f.read
+    f.close
+    file_text.split "\n"
   end
 
-  def add_message msg
-    file_processing do |file|
-      file.puts msg
-    end
-  end
-
-  def file_processing 
-    # fileのopenとcloseを受けもつ
-    f = File.open(@path,"a+")
-    yield f
+  def add_message file_path,msg
+    f = File.open(file_path,"a+")
+    f.puts msg
     f.close
   end
+
 end
