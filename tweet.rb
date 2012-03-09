@@ -19,12 +19,33 @@ class Tweet
     end
     @debug = debug
     @io = File_io.new files_path
-
-    pp @io.normal_replys
-    pp @io.add_replys
-    pp @io.illigal_replys
-    pp @io.multiline_replys
   end
+
+  def tweet_reply tweet,num
+    # num に応じてリプライをツイートする
+    
+    options = get_reply_options tweet
+
+    case num
+    when -1
+      # add
+      post "@#{tweet.user.screen_name} #{@io.add_replys.sample}",options
+      # write add message to file
+    when -2
+      # multi line
+      post "@#{tweet.user.screen_name} #{@io.multiline_replys.sample}",options
+    when -3 
+      # illigal format
+      post "@#{tweet.user.screen_name} #{@io.illigal_replys.sample}",options
+    else
+      # no-reply or single reply or multi reply
+      num.times do
+        post "@#{tweet.user.screen_name} #{@io.normal_replys.sample}",options
+      end
+    end
+  end
+
+  private
 
   def post message,options={}
     # ポストする
