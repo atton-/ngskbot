@@ -19,11 +19,16 @@ class Tweet
     end
     @debug = debug
     @io = File_io.new files_path
+
+    pp @io.normal_replys
+    pp @io.add_replys
+    pp @io.illigal_replys
+    pp @io.multiline_replys
   end
-  
+
   def post message,options={}
     # ポストする
-    
+
     if @debug
       # デバッグモード時。内容の確認のみ。
       puts "----- (debug mode : check ) ------"
@@ -42,12 +47,12 @@ class Tweet
       end
     end
   end
-  
+
   def get_reply_options tweet
     # tweet から、それに対するreplyに必要なoptionを取得する
     # 具体的には in_reply_to_status_id に必要なidを取ってくる
-    
+
     {"in_reply_to_status_id"=>tweet.id}
   end
-  
+
 end
