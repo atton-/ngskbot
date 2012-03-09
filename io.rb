@@ -11,30 +11,32 @@ class File_io
     @path = path
     files_load
   end
-  
+
   def files_load
     # 各種ファイルの存在確認 + ロード
     # それぞれのファイル名は今のところベタ書き
-    
+
     normal_reply_filename = "normal_replys.txt"
     add_reply_filename = "add_replys.txt"
     illegal_reply_filename = "illigal_replys.txt"
     multilne_reply_filename = "multiline_replys.txt"
-    
+
     # 各種ファイルのロード
     @normal_replys = open_file "#{@path}/#{normal_reply_filename}"
     @add_replys = open_file "#{@path}/#{add_reply_filename}"
     @illigal_replys = open_file "#{@path}/#{illegal_reply_filename}"
     @multiline_replys = open_file "#{@path}/#{multilne_reply_filename}"
   end
-  
+
   attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
-  
-  def add_tweet
+
+  def add_tweet tweet,debug = true
     # めいげんの追加書き込み + ログ書き込みをする
-    
+
+    pp debug
+    puts get_text tweet.text
   end
-  
+
 
   private
 
@@ -48,12 +50,12 @@ class File_io
 
   def open_file file_path
     # ファイルの内容をすべて読みこんで返す
-    
+
     # ファイルの存在確認
     file_check file_path
-    
+
     # 読み込み
-    
+
     f = File.open(file_path,"r")
     file_text = f.read
     f.close
@@ -67,4 +69,30 @@ class File_io
     f.close
   end
 
+  def get_text msg
+    # ツイートから追加用テキストを取得する。
+    # 夜フクの非公式RTを前提。
+    # 今のところ結構ゴリ押し。
+
+    # 非公式RTについてくる " :" で分割
+    # 二番目にテキストが入ってくるので取りだす
+    msg = msg.split(": ")[1]
+
+    # 多段非公式RT会話時には、本人の最新発言部分のみもってくる
+    # "RT "で分割。 会話内に入っている場合は分割点がずれる
+    # 本人の最新発言分なので、先頭を取りだす
+
+    msg = msg.split("RT ")[0]
+
+
+    # リプライになりかねないように、@userなやつは消す。
+    # ループで全部消す。
+
+    while msg != msg.sub(/@[^ ]* /,"")
+      msg = msg.sub(/@[^ ]* /,"")
+    end
+
+    msg
+  end
+  
 end
