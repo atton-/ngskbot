@@ -13,7 +13,7 @@ class File_io
   end
   
   def files_load
-    # 各種ファイルの存在確認。
+    # 各種ファイルの存在確認 + ロード
     # それぞれのファイル名は今のところベタ書き
     
     normal_reply_filename = "normal_replys.txt"
@@ -29,6 +29,14 @@ class File_io
   end
   
   attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
+  
+  def add_tweet
+    # めいげんの追加書き込み + ログ書き込みをする
+    
+  end
+  
+
+  private
 
   def file_check path
     if !FileTest.exist? path
@@ -36,6 +44,7 @@ class File_io
       exit
     end
   end
+
 
   def open_file file_path
     # ファイルの内容をすべて読みこんで返す
@@ -52,6 +61,7 @@ class File_io
   end
 
   def add_message file_path,msg
+    # 指定ファイルに追加書き込みをする
     f = File.open(file_path,"a+")
     f.puts msg
     f.close
