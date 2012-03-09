@@ -3,7 +3,7 @@
 
 # デバッグするかどうか。
 # trueならtwitterにポストせずに標準出力に出すだけ
-DEBUG_FLG = true
+DEBUG_FLG = false
 
 # ファイルのパス
 FILES_PATH = "./files_ngskbot"
