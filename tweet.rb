@@ -28,9 +28,8 @@ class Tweet
 
     case num
     when -1
-      # 追加する場合
-      
-      # 追加用コードをここに入れる予定
+      # 追加する
+      @io.add_tweet tweet,@debug   # 追加する
       post "@#{tweet.user.screen_name} #{@io.add_replys.sample}",options
     when -2
       # 複数行の場合
