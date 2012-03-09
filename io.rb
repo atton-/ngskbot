@@ -45,12 +45,14 @@ class File_io
 
 
     if debug
+      puts 
       puts "----- (debug mode : check write tweet ) ------"
       puts "追加予定の内容"
       puts get_text tweet.text
       puts "追加予定のログ"
-      puts get_log tweet.text
+      puts get_log tweet
       puts "---- (debug mode : check write tweet end ) ----"
+      puts
     else
       add_message("#{@path}/#{@add_tweet_file}",get_text(tweet.text)) # ツイート書き込み
       add_message("#{@path}/#{@add_tweet_log_file}",get_log(tweet))   # ログ書き込み
