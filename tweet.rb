@@ -54,11 +54,11 @@ class Tweet
 
     if @debug
       # デバッグモード時。内容の確認のみ。
-      puts "----- (debug mode : check ) ------"
+      puts "----- (debug mode : check tweet ) ------"
       puts "ポスト予定の内容"
       puts message
       pp options
-      puts "---- (debug mode : check end ) ----"
+      puts "---- (debug mode : check tweet end ) ----"
       puts
     else
       # ポストする
