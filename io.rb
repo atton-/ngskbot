@@ -31,7 +31,6 @@ class File_io
   attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
 
   def file_check path
-    puts "hogehogeho : #{path}"
     if !FileTest.exist? path
       puts "#{path} は存在しません。終了します。"
       exit
