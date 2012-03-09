@@ -48,6 +48,8 @@ class File_io
       puts "----- (debug mode : check write tweet ) ------"
       puts "追加予定の内容"
       puts get_text tweet.text
+      puts "追加予定のログ"
+      puts get_log tweet.text
       puts "---- (debug mode : check write tweet end ) ----"
     else
       add_message("#{@path}/#{@add_tweet_file}",get_text(tweet.text)) # ツイート書き込み
@@ -111,6 +113,11 @@ class File_io
     end
 
     msg
+  end
+  
+  def get_log tweet
+    # ログ追加用のテキストを取得する
+    "#{tweet.id} : #{tweet.user.screen_name}"
   end
 
 end
