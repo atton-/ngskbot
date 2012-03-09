@@ -12,10 +12,12 @@ require './message_check.rb'
 require './tweet.rb'
 
 # 標準入力からトークン、botname,username(複数可)を取得
-consumer_key = gets.chomp
-consumer_secret = gets.chomp
-oauth_token = gets.chomp
-oauth_token_secret = gets.chomp
+tokens = {
+  "consumer_key" => gets.chomp,
+  "consumer_secret" => gets.chomp,
+  "oauth_token" => gets.chomp,
+  "oauth_token_secret" => gets.chomp
+}
 bot_name = gets.chomp
 user_name = []
 while true
@@ -26,13 +28,13 @@ end
 
 # UserStreamに認証
 UserStream.configure do |config|
-  config.consumer_key = consumer_key
-  config.consumer_secret = consumer_secret
-  config.oauth_token = oauth_token
-  config.oauth_token_secret = oauth_token_secret
+  config.consumer_key = tokens["consumer_key"]
+  config.consumer_secret = tokens["consumer_secret"]
+  config.oauth_token = tokens["oauth_token"]
+  config.oauth_token_secret = tokens["oauth_token_secret"]
 end
 # REST用クラス作成
-twitter = Tweet.new consumer_key,consumer_secret,oauth_token,oauth_token_secret,DEBUG_FLG
+twitter = Tweet.new tokens,DEBUG_FLG
 
 # チェック用クラス生成
 check = Message_check.new bot_name,user_name
