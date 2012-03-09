@@ -5,6 +5,9 @@
 # trueならtwitterにポストせずに標準出力に出すだけ
 DEBUG_FLG = false
 
+# ファイルのパス
+FILES_PATH = "./files_ngskbot"
+
 require 'pp'
 require 'thread'
 require 'user_stream'
@@ -33,8 +36,8 @@ UserStream.configure do |config|
   config.oauth_token = tokens["oauth_token"]
   config.oauth_token_secret = tokens["oauth_token_secret"]
 end
-# REST用クラス作成
-twitter = Tweet.new tokens,DEBUG_FLG
+# ツイート関連用クラス作成
+twitter = Tweet.new tokens,FILES_PATH,DEBUG_FLG
 
 # チェック用クラス生成
 check = Message_check.new bot_name,user_name

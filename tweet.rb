@@ -8,7 +8,7 @@ require './io.rb'
 
 class Tweet
 
-  def initialize tokens,debug = true
+  def initialize tokens,files_path,debug = true
     # initialize で認証。
     # デバッグフラグもここで付ける。念のためデフォルトはtrue
     Twitter.configure do |config|
@@ -18,6 +18,7 @@ class Tweet
       config.oauth_token_secret = tokens["oauth_token_secret"]
     end
     @debug = debug
+    @io = File_io.new files_path
   end
   
   def post message,options={}
