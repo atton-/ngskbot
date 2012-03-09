@@ -76,8 +76,8 @@ while true
     # multi line
     puts "multi line"
   when -3 
-    # irigal format
-    puts "irigal format"
+    # different format
+    puts "different format"
   else
     # no-reply or single reply or multi reply
     num.times do
