@@ -44,7 +44,7 @@ class Tweet
       # 10 以上だとちょっと文句を言う
       if num >= 10
         # 10より多い場合
-        post(get_reply_header(tweet,"何ですか。暇なんですか。"),options)
+        post(get_reply_header(tweet,@io.many_username_replys.sample),options)
         return
       end
       num.times do
