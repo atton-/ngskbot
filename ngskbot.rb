@@ -6,7 +6,7 @@
 DEBUG_FLG = false
 
 # ファイルのパス
-FILES_PATH = "./files_ngskbot"
+FILES_PATH = "../files_ngskbot"
 
 require 'pp'
 require 'thread'
