@@ -23,29 +23,32 @@ class Tweet
 
   def tweet_reply tweet,num
     # num に応じてリプライをツイートする
-    
+
     options = get_reply_options tweet
 
     case num
     when -1
       # 追加する
       @io.add_tweet tweet,@debug   # 追加する
-      post "@#{tweet.user.screen_name} #{@io.add_replys.sample}",options
+      post(get_reply_header(tweet,@io.add_replys.sample),options)
     when -2
       # 複数行の場合
-      post "@#{tweet.user.screen_name} #{@io.multiline_replys.sample}",options
+      post(get_reply_header(tweet,@io.multiline_replys.sample),options)
     when -3 
       # フォーマットが違う場合
-      post "@#{tweet.user.screen_name} #{@io.illigal_replys.sample}",options
-    when 15
-      # 15個の場合。ngskbotであれば最大数。
-      post "@#{tweet.user.screen_name} 何ですか。暇なんですか。",options
+      post(get_reply_header(tweet,@io.illigal_replys.sample),options)
     else
       # 通常リプライ。
       # bot_nameが含まれていない場合はnumが0になるので結果的にリプライしない
       # bot_nameが含まれている数だけつぶやく
+      # 10 以上だとちょっと文句を言う
+      if num >= 10
+        # 10より多い場合
+        post(get_reply_header(tweet,"何ですか。暇なんですか。"),options)
+        return
+      end
       num.times do
-        post "@#{tweet.user.screen_name} #{@io.normal_replys.sample}",options
+        post(get_reply_header(tweet,@io.normal_replys.sample),options)
       end
     end
   end
@@ -80,6 +83,11 @@ class Tweet
     # 具体的には in_reply_to_status_id に必要なidを取ってくる
 
     {"in_reply_to_status_id"=>tweet.id}
+  end
+
+  def get_reply_header tweet,msg
+    # 返信用のヘッダを作る
+    "@#{tweet.user.screen_name} #{msg}"
   end
 
 end
