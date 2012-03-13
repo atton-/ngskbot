@@ -37,6 +37,9 @@ class Tweet
     when -3 
       # フォーマットが違う場合
       post "@#{tweet.user.screen_name} #{@io.illigal_replys.sample}",options
+    when 15
+      # 15個の場合。ngskbotであれば最大数。
+      post "@#{tweet.user.screen_name} 何ですか。暇なんですか。",options
     else
       # 通常リプライ。
       # bot_nameが含まれていない場合はnumが0になるので結果的にリプライしない
