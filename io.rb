@@ -20,12 +20,14 @@ class File_io
     add_reply_filename = "add_replys.txt"
     illegal_reply_filename = "illigal_replys.txt"
     multiline_reply_filename = "multiline_replys.txt"
+    many_username_reply_filename = "many_username_replys.txt"
 
     # 各種ファイルのロード
     @normal_replys = open_file "#{@path}/#{normal_reply_filename}"
     @add_replys = open_file "#{@path}/#{add_reply_filename}"
     @illigal_replys = open_file "#{@path}/#{illegal_reply_filename}"
     @multiline_replys = open_file "#{@path}/#{multiline_reply_filename}"
+    @many_username_replys = open_file "#{@path}/#{many_username_reply_filename}"
 
     # メッセージ追加用ファイルの存在確認
     # ファイル名は今のところベタ書き
@@ -37,7 +39,7 @@ class File_io
     file_check "#{@path}/#{@add_tweet_log_file}"
   end
 
-  attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys
+  attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys , :many_username_replys
 
   def add_tweet tweet,debug = true
     # めいげんの追加書き込み + ログ書き込みをする
