@@ -9,7 +9,6 @@ DEBUG_FLG = false
 FILES_PATH = "../files_ngskbot"
 
 require 'pp'
-require 'thread'
 require 'user_stream'
 require './message_check.rb'
 require './tweet.rb'
@@ -45,29 +44,10 @@ check = Message_check.new bot_name,user_name
 # UserStream 作成
 client = UserStream.client
 
-# Thread 間通信用キュー作成
-q = Queue.new
-
-# UserStreamを受信するスレッドを作成
-user_stream = Thread.new do
-  client.user do |status|
-    if status.has_key? "text"
-      #textが含まれていたらとりあえずキューにpushする
-      q.push(status)
-    end
+# UserStream で tweet を受信
+client.user do |status|
+  if status.has_key? "text"
+    # tweetが流れてきたらcheckしてreplyを返す
+    twitter.tweet_reply(status,check.format_check(status))
   end
-end
-
-# スレッドを走らせる
-user_stream.run
-
-while true
-  # main loop
-  # キューが空ならスレッドは停止するので、無限ループしてても大丈夫
-
-  # キューからツイートを取ってくる
-  tweet = q.pop
-
-  # format_check に投げて処理を判断して、リプライを送る
-  twitter.tweet_reply(tweet,check.format_check(tweet))
 end
