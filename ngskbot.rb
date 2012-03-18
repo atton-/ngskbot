@@ -3,10 +3,10 @@
 
 # デバッグするかどうか。
 # trueならtwitterにポストせずに標準出力に出すだけ
-DEBUG_FLG = false
+DEBUG_FLG = true
 
 # ファイルのパス
-FILES_PATH = "../files_ngskbot"
+FILES_PATH = gets.chomp
 
 require 'pp'
 require 'user_stream'
