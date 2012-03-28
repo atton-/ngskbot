@@ -45,9 +45,12 @@ check = Message_check.new bot_name,user_name
 client = UserStream.client
 
 # UserStream で tweet を受信
-client.user do |status|
-  if status.has_key? "text"
-    # tweetが流れてきたらcheckしてreplyを返す
-    twitter.tweet_reply(status,check.format_check(status))
+# 接続が切れたら落ちちゃうので無限ループで対処してみる
+while do
+  client.user do |status|
+    if status.has_key? "text"
+      # tweetが流れてきたらcheckしてreplyを返す
+      twitter.tweet_reply(status,check.format_check(status))
+    end
   end
 end
