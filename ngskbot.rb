@@ -1,8 +1,6 @@
 #!/usr/local/bin/ruby
 # -*- coding: utf-8 -*-
 
-puts __FILE__
-
 # デバッグするかどうか。
 # trueならtwitterにポストせずに標準出力に出すだけ
 DEBUG_FLG = true
