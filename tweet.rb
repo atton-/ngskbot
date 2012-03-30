@@ -1,10 +1,10 @@
 #!/usr/local/bin/ruby
 # -*- coding: utf-8 -*-
 # ツイート関連をまとめるクラス
-
+dir =  File.dirmane File.expand_path(__FILE__)
 require 'twitter'
 require 'pp'
-require './io.rb'
+require "#{dir}/io.rb"
 
 class Tweet
 
