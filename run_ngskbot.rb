@@ -4,7 +4,7 @@
 
 bot_name = "ngskbot.rb"
 setting_file_name = "settings.txt"
-log_file = "ngskbot_log.txt"
+log_file = "log_ngskbot.txt"
 
 dir = File.dirname File.expand_path(__FILE__)
 
