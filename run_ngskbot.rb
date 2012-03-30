@@ -6,7 +6,7 @@ bot_name = "ngskbot.rb"
 setting_file_name = "settings.txt"
 log_file = "ngskbot_log.txt"
 
-dir = File.dirname __FILE__
+dir = File.dirname File.expand_path(__FILE__)
 
 command = "nohup ruby #{dir}/#{bot_name} < #{dir}/#{setting_file_name} >> ~/#{log_file} &"
 

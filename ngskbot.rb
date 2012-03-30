@@ -8,7 +8,7 @@ DEBUG_FLG = true
 # ファイルのパス
 FILES_PATH = gets.chomp
 
-dir = File.dirname __FILE__
+dir = File.dirname File.expand_path(__FILE__)
 require 'pp'
 require 'user_stream'
 require "#{dir}/message_check.rb"
@@ -55,4 +55,4 @@ end
 
 # 再起動
 # このファイルと同じディレクトリに起動用の run_ngskbot.rb がある前提。
-exec "ruby #{File.dirname __FILE__}/run_ngskbot.rb"
+exec "ruby #{File.dirname File.expand_path(__FILE__)}/run_ngskbot.rb"
