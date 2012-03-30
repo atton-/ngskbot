@@ -8,10 +8,11 @@ DEBUG_FLG = true
 # ファイルのパス
 FILES_PATH = gets.chomp
 
+dir = File.dirname __FILE__
 require 'pp'
 require 'user_stream'
-require './message_check.rb'
-require './tweet.rb'
+require "#{dir}/message_check.rb"
+require "#{dir}/tweet.rb"
 
 # 標準入力からトークン、botname,username(複数可)を取得
 tokens = {

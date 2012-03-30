@@ -10,6 +10,9 @@ dir = File.dirname __FILE__
 
 command = "nohup ruby #{dir}/#{bot_name} < #{dir}/#{setting_file_name} >> ~/#{log_file} &"
 
-puts "show command"
-puts command
-exec command
+# 確認用
+if true
+  puts "show command"
+  puts command
+end
+exec command 
