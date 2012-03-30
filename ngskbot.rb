@@ -45,12 +45,13 @@ check = Message_check.new bot_name,user_name
 client = UserStream.client
 
 # UserStream で tweet を受信
-# 接続が切れたら落ちちゃうので無限ループで対処してみる
-while true
-  client.user do |status|
-    if status.has_key? "text"
-      # tweetが流れてきたらcheckしてreplyを返す
-      twitter.tweet_reply(status,check.format_check(status))
-    end
+client.user do |status|
+  if status.has_key? "text"
+    # tweetが流れてきたらcheckしてreplyを返す
+    twitter.tweet_reply(status,check.format_check(status))
   end
 end
+
+# 再起動
+# このファイルと同じディレクトリに起動用の run_ngskbot.rb がある前提。
+exec "ruby #{File.dirname __FILE__}/run_ngskbot.rb"
