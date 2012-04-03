@@ -1,11 +1,17 @@
 #!/usr/local/bin/ruby
 # -*- coding: utf-8 -*-
 
+=begin
+  ngskbot の本体。
+  userstream でリプを拾って返事をします。
+  userstream からの応答がしばらくないと終了するので、正常終了時にもう一つngskbotを起動するというちょっとアレな方法で対処してます。
+=end
+
 # デバッグするかどうか。
 # trueならtwitterにポストせずに標準出力に出すだけ
 DEBUG_FLG = true
 
-# ファイルのパス
+# 各種ファイルのパス
 FILES_PATH = gets.chomp
 
 dir = File.dirname File.expand_path(__FILE__)

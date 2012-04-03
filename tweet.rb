@@ -53,6 +53,11 @@ class Tweet
     end
   end
 
+  def random_post
+    # 定期つぶやき
+    post @io.tweet.sample
+  end
+
   private
 
   def post message,options={}
