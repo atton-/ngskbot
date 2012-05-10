@@ -3,7 +3,7 @@ bot=
 
 n=`ps x |grep ruby|grep ngskbot|wc -l`
 
-if [ $n -eq 1 ]; then
+if [ $n -eq 0 ]; then
 	ruby ${bot}
 fi
 
