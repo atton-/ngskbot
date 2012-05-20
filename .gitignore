@@ -7,4 +7,5 @@
 !run_ngskbot.rb
 !post_ngskbot.rb
 !reboot.sh
+!single_post.sh
 !README
