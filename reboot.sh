@@ -1,9 +1,10 @@
 #!/bin/sh
-bot=
+bot=""
+log_file=""
 
 n=`ps x |grep ruby|grep ngskbot|wc -l`
 
 if [ $n -eq 0 ]; then
-	ruby ${bot}
+	nohup ruby ${bot} > log_file &
 fi
 
