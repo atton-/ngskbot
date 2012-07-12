@@ -46,7 +46,7 @@ end
 twitter = Tweet.new tokens,FILES_PATH,DEBUG_FLG
 
 # チェック用クラス生成
-check = Message_check.new bot_name,user_name
+check = MessageCheck.new bot_name,user_name
 
 # UserStream 作成
 client = UserStream.client

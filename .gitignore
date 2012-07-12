@@ -9,3 +9,5 @@
 !reboot.sh
 !single_post.sh
 !README
+!spec/
+!spec/*.rb
