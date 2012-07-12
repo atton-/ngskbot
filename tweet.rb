@@ -30,13 +30,13 @@ class Tweet
     when -1
       # 追加する
       @io.add_tweet tweet,@debug   # 追加する
-      post(get_reply_header(tweet,@io.add_replys.sample),options)
+      post(get_reply_header(tweet,@io.get_reply_random(:add_replys)),options)
     when -2
       # 複数行の場合
-      post(get_reply_header(tweet,@io.multiline_replys.sample),options)
+      post(get_reply_header(tweet,@io.get_reply_random(:multiline_replys)),options)
     when -3 
       # フォーマットが違う場合
-      post(get_reply_header(tweet,@io.illigal_replys.sample),options)
+      post(get_reply_header(tweet,@io.get_reply_random(:illigal_replys)),options)
     else
       # 通常リプライ。
       # bot_nameが含まれていない場合はnumが0になるので結果的にリプライしない
@@ -44,11 +44,11 @@ class Tweet
       # 10 以上だとちょっと文句を言う
       if num >= 10
         # 10より多い場合
-        post(get_reply_header(tweet,@io.many_username_replys.sample),options)
+        post(get_reply_header(tweet,@io.get_reply_random(:many_username_replys)),options)
         return
       end
       num.times do
-        post(get_reply_header(tweet,@io.normal_replys.sample),options)
+        post(get_reply_header(tweet,@io.get_reply_random(:normal_replys)),options)
       end
     end
   end

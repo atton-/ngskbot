@@ -16,18 +16,19 @@ class File_io
     # リプライ用各種ファイルの存在確認 + ロード
     # それぞれのファイル名は今のところベタ書き
 
-    normal_reply_filename = "normal_replys.txt"
-    add_reply_filename = "add_replys.txt"
-    illegal_reply_filename = "illigal_replys.txt"
-    multiline_reply_filename = "multiline_replys.txt"
+    normal_reply_filename        = "normal_replys.txt"
+    add_reply_filename           = "add_replys.txt"
+    illegal_reply_filename       = "illigal_replys.txt"
+    multiline_reply_filename     = "multiline_replys.txt"
     many_username_reply_filename = "many_username_replys.txt"
 
     # リプライ用各種ファイルのロード
-    @normal_replys = open_file "#{@path}/#{normal_reply_filename}"
-    @add_replys = open_file "#{@path}/#{add_reply_filename}"
-    @illigal_replys = open_file "#{@path}/#{illegal_reply_filename}"
-    @multiline_replys = open_file "#{@path}/#{multiline_reply_filename}"
-    @many_username_replys = open_file "#{@path}/#{many_username_reply_filename}"
+    @replys = {}
+    @replys[:normal_replys]        = open_file "#{@path}/#{normal_reply_filename}"
+    @replys[:add_replys]           = open_file "#{@path}/#{add_reply_filename}"
+    @replys[:illigal_replys]       = open_file "#{@path}/#{illegal_reply_filename}"
+    @replys[:multiline_replys]     = open_file "#{@path}/#{multiline_reply_filename}"
+    @replys[:many_username_replys] = open_file "#{@path}/#{many_username_reply_filename}"
 
     # メッセージ追加用ファイルの存在確認
     # ファイル名は今のところベタ書き
@@ -42,7 +43,7 @@ class File_io
     @tweet = open_file "#{@path}/#{@add_tweet_file}"
   end
 
-  attr_reader :normal_replys , :add_replys , :illigal_replys , :multiline_replys , :many_username_replys , :tweet
+  attr_reader :tweet
 
   def add_tweet tweet,debug = true
     # めいげんの追加書き込み + ログ書き込みをする
@@ -64,6 +65,10 @@ class File_io
     end
   end
 
+  def get_reply_random reply_kind
+    # リプライのパターンを指定すると、そこからランダムに取ってくる
+    @replys[reply_kind].sample
+  end
 
   private
 
